@@ -1,0 +1,517 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sran Media Website</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Custom CSS -->
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #f8f9fa;
+        }
+
+        /* Navbar */
+        .navbar {
+            background: linear-gradient(90deg, #1a1a1a, #343a40);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+        .navbar-brand {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: #fff !important;
+        }
+        .nav-link {
+            color: #fff !important;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+        .nav-link:hover {
+            color: #0dcaf0 !important;
+        }
+
+        /* Sidebar */
+        .sidebar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 100%;
+            width: 250px;
+            background: linear-gradient(180deg, #0dcaf0, #1a1a1a);
+            padding-top: 80px;
+            color: white;
+            z-index: 1000;
+            transition: transform 0.3s ease;
+        }
+        .sidebar h2 {
+            font-size: 1.5rem;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .sidebar ul {
+            list-style: none;
+            padding: 0;
+        }
+        .sidebar ul li {
+            padding: 15px 20px;
+            font-size: 1.1rem;
+            transition: background 0.3s ease;
+        }
+        .sidebar ul li:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+        .sidebar ul li a {
+            color: white;
+            text-decoration: none;
+        }
+
+        /* Main Content */
+        .main-content {
+            margin-left: 250px;
+            padding: 20px;
+        }
+
+        /* Hero Section */
+        .hero-section {
+            height: 80vh;
+            position: relative;
+        }
+        .carousel-item img {
+            object-fit: cover;
+            height: 80vh;
+            filter: brightness(70%);
+        }
+        .carousel-caption {
+            background: rgba(0, 0, 0, 0.6);
+            padding: 20px;
+            border-radius: 10px;
+        }
+
+        /* Service Section */
+        .service-section {
+            padding: 60px 0;
+            background: #fff;
+        }
+        .service-card {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border: none;
+            border-radius: 15px;
+            overflow: hidden;
+            background: #f8f9fa;
+            text-align: center;
+            padding: 20px;
+        }
+        .service-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+        }
+        .service-card i {
+            font-size: 3rem;
+            color: #0dcaf0;
+            margin-bottom: 15px;
+        }
+        .service-card h5 {
+            font-weight: bold;
+            color: #1a1a1a;
+        }
+        .service-card p {
+            color: #6c757d;
+        }
+
+        /* News Section */
+        .news-section {
+            padding: 60px 0;
+        }
+        .card {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border: none;
+            border-radius: 15px;
+            overflow: hidden;
+        }
+        .card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+        }
+        .card img {
+            width: 100%;
+            height: 360px; /* Adjusted for 1080x1080 images to maintain aspect ratio */
+            object-fit: cover;
+        }
+
+        /* Gallery Slider */
+        .gallery-section {
+            padding: 60px 0;
+            background: #e9ecef;
+        }
+        .gallery-slider {
+            overflow: hidden;
+            position: relative;
+        }
+        .gallery-slider .slider {
+            display: flex;
+            animation: slide 20s infinite linear;
+        }
+        .gallery-slider img {
+            width: 360px; /* Adjusted for 1080x1080 images */
+            height: 360px;
+            object-fit: cover;
+            margin-right: 15px;
+            border-radius: 10px;
+        }
+        @keyframes slide {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-3000px); } /* 8 images * (360px + 15px margin) */
+        }
+
+        /* Activity Section */
+        .activity-section {
+            padding: 60px 0;
+            text-align: center;
+            background: linear-gradient(180deg, #0dcaf0, #fff);
+        }
+        .client-counter {
+            font-size: 3rem;
+            font-weight: bold;
+            color: #1a1a1a;
+        }
+
+        /* Footer */
+        .footer {
+            background: linear-gradient(90deg, #1a1a1a, #343a40);
+            color: white;
+            padding: 40px 0;
+        }
+        .footer a {
+            color: #0dcaf0;
+            text-decoration: none;
+        }
+        .footer a:hover {
+            color: #fff;
+        }
+        .footer .social-icons a {
+            font-size: 1.5rem;
+            margin: 0 10px;
+            transition: color 0.3s ease;
+        }
+        .footer .map-container {
+            height: 200px;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        /* Responsive */
+        @media (max-width: 992px) {
+            .sidebar {
+                transform: translateX(-250px);
+            }
+            .sidebar.active {
+                transform: translateX(0);
+            }
+            .main-content {
+                margin-left: 0;
+            }
+            .navbar-toggler {
+                display: block !important;
+            }
+            .card img, .gallery-slider img {
+                height: 300px; /* Smaller height for mobile */
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg fixed-top">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#"> Sran Media Vibe</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link" href="#home">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#services">Services</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#news">News</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#gallery">Gallery</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#activity">Activity</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#contact">Contact</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <h2>MediaVibe</h2>
+        <ul>
+            <li><a href="#home">Home</a></li>
+            <li><a href="#services">Services</a></li>
+            <li><a href="#news">News</a></li>
+            <li><a href="#gallery">Gallery</a></li>
+            <li><a href="#activity">Activity</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <!-- Hero Section -->
+        <section id="home" class="hero-section">
+            <div id="heroCarousel" class="carousel slide" data-bs-ride="carousel">
+                <div class="carousel-inner">
+                    <div class="carousel-item active">
+                        <img src="slider1.jpg" class="d-block w-100" alt="Slide 1">
+                        <div class="carousel-caption">
+                            <h1>Welcome to Sran Media Vibe</h1>
+                            <p>Explore the latest in media and entertainment.</p>
+                        </div>
+                    </div>
+                    <div class="carousel-item">
+                        <img src="slider2.jpg" class="d-block w-100" alt="Slide 2">
+                        <div class="carousel-caption">
+                            <h1>Stay Updated</h1>
+                            <p>Discover trending news and stories.</p>
+                        </div>
+                    </div>
+                    <div class="carousel-item">
+                        <img src="slider3.jpg" class="d-block w-100" alt="Slide 3">
+                        <div class="carousel-caption">
+                            <h1>Join Our Community</h1>
+                            <p>Connect with millions of media enthusiasts.</p>
+                        </div>
+                    </div>
+                </div>
+                <button class="carousel-control-prev" type="button" data-bs-target="#heroCarousel" data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Previous</span>
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#heroCarousel" data-bs-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Next</span>
+                </button>
+            </div>
+        </section>
+
+        <!-- Service Section -->
+        <section id="services" class="service-section">
+            <div class="container">
+                <h2 class="text-center mb-5">Our Services</h2>
+                <div class="row">
+                    <div class="col-md-4 col-lg-3 mb-4">
+                        <div class="service-card">
+                            <i class="fas fa-palette"></i>
+                            <h5>Logo Design</h5>
+                            <p>Create a unique and memorable logo to represent your brand identity.</p>
+                        </div>
+                    </div>
+                    <div class="col-md-4 col-lg-3 mb-4">
+                        <div class="service-card">
+                            <i class="fas fa-image"></i>
+                            <h5>Poster Design</h5>
+                            <p>Eye-catching posters for events, promotions, and campaigns.</p>
+                        </div>
+                    </div>
+                    <div class="col-md-4 col-lg-3 mb-4">
+                        <div class="service-card">
+                            <i class="fas fa-briefcase"></i>
+                            <h5>Business Poster</h5>
+                            <p>Professional posters tailored for corporate branding and marketing.</p>
+                        </div>
+                    </div>
+                    <div class="col-md-4 col-lg-3 mb-4">
+                        <div class="service-card">
+                            <i class="fas fa-graduation-cap"></i>
+                            <h5>IELTS Poster</h5>
+                            <p>Engaging posters to promote IELTS coaching and preparation services.</p>
+                        </div>
+                    </div>
+                    <div class="col-md-4 col-lg-3 mb-4">
+                        <div class="service-card">
+                            <i class="fas fa-school"></i>
+                            <h5>School/College Poster</h5>
+                            <p>Vibrant posters for educational institutions and events.</p>
+                        </div>
+                    </div>
+                    <div class="col-md-4 col-lg-3 mb-4">
+                        <div class="service-card">
+                            <i class="fas fa-desktop"></i>
+                            <h5>PPT Design</h5>
+                            <p>Dynamic and professional PowerPoint presentations for any occasion.</p>
+                        </div>
+                    </div>
+                    <div class="col-md-4 col-lg-3 mb-4">
+                        <div class="service-card">
+                            <i class="fas fa-id-card"></i>
+                            <h5>Business Card Design</h5>
+                            <p>Sleek and modern business cards to make a lasting impression.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- News Section -->
+        <section id="news" class="news-section">
+            <div class="container">
+                <h2 class="text-center mb-5">Latest Update</h2>
+                <div class="row">
+                    <div class="col-md-4 mb-4">
+                        <div class="card">
+                            <img src="mahi1.jpg" class="card-img-top" alt="News 1">
+                            <div class="card-body">
+                                <h5 class="card-title">Mahi immigration Fazilka</h5>
+                               
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 mb-4">
+                        <div class="card">
+                            <img src="mahi2.jpg" class="card-img-top" alt="News 2">
+                            <div class="card-body">
+                                <h5 class="card-title">Mahi immigration Fazilka</h5>
+                                
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 mb-4">
+                        <div class="card">
+                            <img src="mahi3.jpg" class="card-img-top" alt="News 3">
+                            <div class="card-body">
+                                <h5 class="card-title">Mahi immigration Fazilka</h5>
+                               
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 mb-4">
+                        <div class="card">
+                            <img src="jerry.jpg" class="card-img-top" alt="News 4">
+                            <div class="card-body">
+                                <h5 class="card-title">Jerry Randhawa immigration</h5>
+                                
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 mb-4">
+                        <div class="card">
+                            <img src="jerry2.jpg" class="card-img-top" alt="News 5">
+                            <div class="card-body">
+                                <h5 class="card-title">Jerry Randhawa immigration</h5>
+                                
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 mb-4">
+                        <div class="card">
+                            <img src="licence.jpg" class="card-img-top" alt="News 6">
+                            <div class="card-body">
+                                <h5 class="card-title">Ludhiana immigration</h5>
+                               
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Gallery Section -->
+        <section id="gallery" class="gallery-section">
+            <div class="container">
+                <h2 class="text-center mb-5">Image Gallery</h2>
+                <div class="gallery-slider">
+                    <div class="slider">
+                        <img src="fs1.jpg" alt="Gallery 1">
+                        <img src="fs3.jpg" alt="Gallery 2">
+                        <img src="fs2.jpg" alt="Gallery 3">
+                        <img src="fs4.jpg" alt="Gallery 4">
+                        <img src="fs5.jpg" alt="Gallery 5">
+                        <img src="fs6.jpg" alt="Gallery 6">
+                        <img src="fs7.jpg" alt="Gallery 7">
+                        <img src="fs8.jpg" alt="Gallery 8">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Activity Section -->
+        <section id="activity" class="activity-section">
+            <div class="container">
+                <h2 class="text-center mb-5">Our Reach</h2>
+                <div class="client-counter">0</div>
+                <p class="text-center">Happy Clients and Counting</p>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer id="contact" class="footer">
+            <div class="container">
+                <div class="row">
+                    <!-- Contact Info -->
+                    <div class="col-md-4">
+                        <h4>Contact Us</h4>
+                        <p><i class="fas fa-phone"></i> 7009263992</p>
+                        <p><i class="fas fa-envelope"></i> srannavi026@gmail.com</p>
+                        <p><i class="fas fa-map-marker-alt"></i> Sri Mutsar Sahib ,Barkandi Road, city Malout</p>
+                    </div>
+                    <!-- Social Media -->
+                    <div class="col-md-4 text-center">
+                        <h4>Follow Us</h4>
+                        <div class="social-icons">
+                            <a href="https://instagram.com" target="_blank"><i class="fab fa-instagram"></i></a>
+                            <a href="https://facebook.com" target="_blank"><i class="fab fa-facebook"></i></a>
+                        </div>
+                    </div>
+                    <!-- Google Map -->
+                    <div class="col-md-4">
+                        <h4>Our Location</h4>
+                        <div class="map-container">
+                            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d55019.78592738888!2d74.47352765799816!3d30.47189730338108!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x391768df2e60fe8b%3A0x571b6647fca23322!2sSri%20Muktsar%20Sahib%2C%20Punjab%20152026!5e0!3m2!1sen!2sin!4v1754117384815!5m2!1sen!2sin" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe> width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <!-- Bootstrap JS and Dependencies -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Custom JS -->
+    <script>
+        // Client Counter Animation
+        function animateCounter() {
+            const counter = document.querySelector('.client-counter');
+            let count = 0;
+            const target = 5000;
+            const speed = 2000 / target; // 2 seconds to reach 5000
+            const updateCounter = () => {
+                counter.textContent = Math.floor(count);
+                if (count < target) {
+                    count += target / 100;
+                    setTimeout(updateCounter, speed);
+                } else {
+                    counter.textContent = target;
+                }
+            };
+            updateCounter();
+        }
+
+        // Trigger counter animation when section is in view
+        const activitySection = document.querySelector('#activity');
+        const observer = new IntersectionObserver((entries) => {
+            if (entries[0].isIntersecting) {
+                animateCounter();
+                observer.disconnect();
+            }
+        }, { threshold: 0.5 });
+        observer.observe(activitySection);
+
+        // Toggle sidebar on mobile
+        document.querySelector('.navbar-toggler').addEventListener('click', () => {
+            document.querySelector('.sidebar').classList.toggle('active');
+        });
+    </script>
+</body>
+</html>
